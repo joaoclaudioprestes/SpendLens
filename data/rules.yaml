@@ -1,0 +1,68 @@
+alimentacao:
+  keywords:
+    - supermercado
+    - ifood
+    - restaurante
+    - padaria
+    - açaí
+    - mercado
+    - comida
+
+transporte:
+  keywords:
+    - uber
+    - 99
+    - combustivel
+    - estacionamento
+    - taxi
+    - ônibus
+    - metrô
+
+moradia:
+  keywords:
+    - aluguel
+    - condominio
+    - agua
+    - energia
+    - internet
+    - cable
+    - telefone
+
+utilities:
+  keywords:
+    - conta
+    - boleto
+    - pagamento
+    - luz
+    - gas
+    - agua
+
+entretenimento:
+  keywords:
+    - cinema
+    - teatro
+    - netflix
+    - spotify
+    - deezer
+    - hbo
+    - disney
+
+saude:
+  keywords:
+    - farmacia
+    - hospital
+    - clinica
+    - medico
+    - dentista
+    - consulta
+
+compras:
+  keywords:
+    - amazon
+    - magazine
+    - mercado
+    - shein
+    - lojas
+
+outros:
+  keywords: []
