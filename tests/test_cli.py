@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 from click.testing import CliRunner
 
-from src.cli import main
+from spendlens.cli import main
 
 
 @pytest.fixture
@@ -30,7 +30,9 @@ class TestIngestCommand:
 
     def test_ingest_nubank_success(self, runner, nubank_sample):
         """ingest command succeeds with Nubank CSV."""
-        result = runner.invoke(main, ["ingest", str(nubank_sample), "--banco", "nubank"])
+        result = runner.invoke(
+            main, ["ingest", str(nubank_sample), "--banco", "nubank"]
+        )
         assert result.exit_code == 0
         assert "Ingest Summary" in result.output
         assert "Inserted" in result.output
@@ -44,7 +46,9 @@ class TestIngestCommand:
 
     def test_ingest_missing_file(self, runner):
         """ingest fails when file doesn't exist."""
-        result = runner.invoke(main, ["ingest", "/nonexistent/file.csv", "--banco", "nubank"])
+        result = runner.invoke(
+            main, ["ingest", "/nonexistent/file.csv", "--banco", "nubank"]
+        )
         assert result.exit_code == 2  # Click error for invalid argument
         assert "does not exist" in result.output
 
@@ -56,7 +60,9 @@ class TestIngestCommand:
 
     def test_ingest_invalid_banco_option(self, runner, nubank_sample):
         """ingest fails with invalid --banco value."""
-        result = runner.invoke(main, ["ingest", str(nubank_sample), "--banco", "invalid"])
+        result = runner.invoke(
+            main, ["ingest", str(nubank_sample), "--banco", "invalid"]
+        )
         assert result.exit_code == 2
         assert "Invalid value for '--banco'" in result.output
 
@@ -67,7 +73,9 @@ class TestIngestCommand:
         if db_path.exists():
             db_path.unlink()
 
-        result = runner.invoke(main, ["ingest", str(nubank_sample), "--banco", "nubank"])
+        result = runner.invoke(
+            main, ["ingest", str(nubank_sample), "--banco", "nubank"]
+        )
         assert result.exit_code == 0
         assert db_path.exists()
 
@@ -87,7 +95,9 @@ class TestIngestCommand:
             db_path.unlink()
 
         # First ingest
-        result1 = runner.invoke(main, ["ingest", str(nubank_sample), "--banco", "nubank"])
+        result1 = runner.invoke(
+            main, ["ingest", str(nubank_sample), "--banco", "nubank"]
+        )
         assert result1.exit_code == 0
 
         conn = sqlite3.connect(str(db_path))
@@ -95,7 +105,9 @@ class TestIngestCommand:
         conn.close()
 
         # Second ingest (same file)
-        result2 = runner.invoke(main, ["ingest", str(nubank_sample), "--banco", "nubank"])
+        result2 = runner.invoke(
+            main, ["ingest", str(nubank_sample), "--banco", "nubank"]
+        )
         assert result2.exit_code == 0
 
         conn = sqlite3.connect(str(db_path))
@@ -109,7 +121,9 @@ class TestIngestCommand:
 
     def test_ingest_output_format(self, runner, nubank_sample):
         """ingest output contains expected summary table."""
-        result = runner.invoke(main, ["ingest", str(nubank_sample), "--banco", "nubank"])
+        result = runner.invoke(
+            main, ["ingest", str(nubank_sample), "--banco", "nubank"]
+        )
         assert result.exit_code == 0
         assert "Ingest Summary" in result.output
         assert "Total Rows" in result.output

@@ -1,6 +1,6 @@
 import pytest
 from pathlib import Path
-from src.classifiers import RuleClassifier
+from spendlens.classifiers import RuleClassifier
 
 
 @pytest.fixture

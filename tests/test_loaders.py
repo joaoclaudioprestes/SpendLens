@@ -3,11 +3,11 @@ from datetime import date
 
 import pytest
 
-from src.loaders import SchemaManager, TransactionLoader
-from src.transformers import Transaction
-from src.extractors import NubankExtractor
-from src.transformers import NubankTransformer
-from src.classifiers import RuleClassifier
+from spendlens.loaders import SchemaManager, TransactionLoader
+from spendlens.transformers import Transaction
+from spendlens.extractors import NubankExtractor
+from spendlens.transformers import NubankTransformer
+from spendlens.classifiers import RuleClassifier
 from pathlib import Path
 
 

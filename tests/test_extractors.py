@@ -1,7 +1,7 @@
 import pytest
 from pathlib import Path
 import tempfile
-from src.extractors import NubankExtractor, ItauExtractor, ExtractionResult
+from spendlens.extractors import NubankExtractor, ItauExtractor, ExtractionResult
 
 
 @pytest.fixture

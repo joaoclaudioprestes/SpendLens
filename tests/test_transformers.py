@@ -1,8 +1,8 @@
 import pytest
 from datetime import date
 from pathlib import Path
-from src.extractors import NubankExtractor, ItauExtractor
-from src.transformers import (
+from spendlens.extractors import NubankExtractor, ItauExtractor
+from spendlens.transformers import (
     NubankTransformer,
     ItauTransformer,
     Transaction,
