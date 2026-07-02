@@ -119,10 +119,10 @@ Schema canônico: `(date: date, description: str, value: float, type: str, sourc
 
 **Objetivo:** comando end-to-end de ingestão.
 
-- [ ] `spendlens ingest <arquivo> --banco nubank|itau`
+- [X] `spendlens ingest <arquivo> --banco nubank|itau`
   - Extrai → Transforma → Classifica → Carrega
   - Exibe com `rich`: total ingerido, duplicatas ignoradas, erros
-- [ ] Teste de integração: rodar `ingest` com CSV sample → verificar registros no banco
+- [X] Teste de integração: rodar `ingest` com CSV sample → verificar registros no banco
 
 ---
 
@@ -132,11 +132,11 @@ Schema canônico: `(date: date, description: str, value: float, type: str, sourc
 
 Cada query em arquivo `.sql` separado **e** em `queries/analytics.py` como função que recebe `conn` e retorna `list[dict]`.
 
-- [ ] `total_por_categoria_mes.sql` — GROUP BY categoria, mês
-- [ ] `media_movel_3meses.sql` — média dos últimos 3 meses por categoria (window function ou subquery)
-- [ ] `top5_maiores_gastos.sql` — top 5 despesas do período filtrado
-- [ ] `mes_maior_variacao_saldo.sql` — receitas - despesas por mês, ordenado por variação absoluta
-- [ ] Testes: cada query executada contra banco populado com fixtures → assert nos valores esperados
+- [X] `total_por_categoria_mes.sql` — GROUP BY categoria, mês
+- [X] `media_movel_3meses.sql` — média dos últimos 3 meses por categoria (window function ou subquery)
+- [X] `top5_maiores_gastos.sql` — top 5 despesas do período filtrado
+- [X] `mes_maior_variacao_saldo.sql` — receitas - despesas por mês, ordenado por variação absoluta
+- [X] Testes: cada query executada contra banco populado com fixtures → assert nos valores esperados
 
 ---
 
