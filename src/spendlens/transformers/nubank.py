@@ -10,8 +10,8 @@ class NubankTransformer(BaseTransformer):
         Transform Nubank row: (Data, Descrição, Valor) → Transaction.
 
         Tipo is inferred from Valor sign:
-        - Negative valor → "despesa"
-        - Positive valor → "receita"
+        - Negative valor → "expense"
+        - Positive valor → "income"
 
         Args:
             raw_row: Dict with keys: Data, Descrição, Valor
@@ -60,10 +60,10 @@ class NubankTransformer(BaseTransformer):
 
         # Infer type from sign and make value positive
         if value < 0:
-            type_ = "despesa"
+            type_ = "expense"
             value = abs(value)
         else:
-            type_ = "receita"
+            type_ = "income"
 
         # Normalize description
         description = description.strip()

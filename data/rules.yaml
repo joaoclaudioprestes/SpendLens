@@ -1,4 +1,4 @@
-alimentacao:
+food:
   keywords:
     - supermercado
     - ifood
@@ -8,7 +8,7 @@ alimentacao:
     - mercado
     - comida
 
-transporte:
+transport:
   keywords:
     - uber
     - 99
@@ -18,7 +18,7 @@ transporte:
     - ônibus
     - metrô
 
-moradia:
+housing:
   keywords:
     - aluguel
     - condominio
@@ -37,7 +37,7 @@ utilities:
     - gas
     - agua
 
-entretenimento:
+entertainment:
   keywords:
     - cinema
     - teatro
@@ -47,7 +47,7 @@ entretenimento:
     - hbo
     - disney
 
-saude:
+health:
   keywords:
     - farmacia
     - hospital
@@ -56,7 +56,7 @@ saude:
     - dentista
     - consulta
 
-compras:
+shopping:
   keywords:
     - amazon
     - magazine
@@ -64,5 +64,5 @@ compras:
     - shein
     - lojas
 
-outros:
+other:
   keywords: []

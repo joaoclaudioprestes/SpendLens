@@ -10,8 +10,8 @@ class ItauTransformer(BaseTransformer):
         Transform Itau row: (data_lancamento, historico, valor, tipo) → Transaction.
 
         Tipo mapping:
-        - "D" (Débito) → "despesa"
-        - "C" (Crédito) → "receita"
+        - "D" (Debit) → "expense"
+        - "C" (Credit) → "income"
 
         Date format: DD/MM/YYYY
 
@@ -66,12 +66,12 @@ class ItauTransformer(BaseTransformer):
         if value == 0:
             raise ValueError("Value cannot be zero")
 
-        # Map type: C/D → receita/despesa
+        # Map type: C/D → income/expense
         type_upper = type_raw.strip().upper()
         if type_upper == "C":
-            type_ = "receita"
+            type_ = "income"
         elif type_upper == "D":
-            type_ = "despesa"
+            type_ = "expense"
         else:
             raise ValueError(f"Invalid type (must be 'C' or 'D'): {type_raw}")
 

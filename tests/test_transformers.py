@@ -46,7 +46,7 @@ class TestNubankTransformer:
     """Test NubankTransformer with valid and invalid data."""
 
     def test_transform_valid_nubank_negative_value(self, nubank_transformer):
-        """Valid Nubank row with negative value → despesa transaction."""
+        """Valid Nubank row with negative value → expense transaction."""
         raw_row = {"Data": "2025-03-06", "Descrição": "IFOOD", "Valor": "-50.00"}
         result = nubank_transformer.transform(raw_row)
 
@@ -54,18 +54,18 @@ class TestNubankTransformer:
         assert result.date == date(2025, 3, 6)
         assert result.description == "IFOOD"
         assert result.value == 50.0
-        assert result.type == "despesa"
+        assert result.type == "expense"
         assert result.source == "nubank"
 
     def test_transform_valid_nubank_positive_value(self, nubank_transformer):
-        """Valid Nubank row with positive value → receita transaction."""
+        """Valid Nubank row with positive value → income transaction."""
         raw_row = {"Data": "2025-03-08", "Descrição": "SALARIO", "Valor": "1500.00"}
         result = nubank_transformer.transform(raw_row)
 
         assert result.date == date(2025, 3, 8)
         assert result.description == "SALARIO"
         assert result.value == 1500.0
-        assert result.type == "receita"
+        assert result.type == "income"
         assert result.source == "nubank"
 
     def test_transform_nubank_zero_value_rejected(self, nubank_transformer):
@@ -138,8 +138,8 @@ class TestNubankTransformer:
 class TestItauTransformer:
     """Test ItauTransformer with valid and invalid data."""
 
-    def test_transform_valid_itau_despesa(self, itau_transformer):
-        """Valid Itau row with tipo='D' → despesa transaction."""
+    def test_transform_valid_itau_expense(self, itau_transformer):
+        """Valid Itau row with tipo='D' → expense transaction."""
         raw_row = {
             "data_lancamento": "06/03/2025",
             "historico": "IFOOD",
@@ -152,11 +152,11 @@ class TestItauTransformer:
         assert result.date == date(2025, 3, 6)
         assert result.description == "IFOOD"
         assert result.value == 50.0
-        assert result.type == "despesa"
+        assert result.type == "expense"
         assert result.source == "itau"
 
-    def test_transform_valid_itau_receita(self, itau_transformer):
-        """Valid Itau row with tipo='C' → receita transaction."""
+    def test_transform_valid_itau_income(self, itau_transformer):
+        """Valid Itau row with tipo='C' → income transaction."""
         raw_row = {
             "data_lancamento": "08/03/2025",
             "historico": "TED RECEBIDA",
@@ -168,7 +168,7 @@ class TestItauTransformer:
         assert result.date == date(2025, 3, 8)
         assert result.description == "TED RECEBIDA"
         assert result.value == 1500.0
-        assert result.type == "receita"
+        assert result.type == "income"
         assert result.source == "itau"
 
     def test_transform_itau_zero_value_rejected(self, itau_transformer):
@@ -294,14 +294,14 @@ class TestTransaction:
             date=date(2025, 3, 6),
             description="TEST",
             value=50.0,
-            type="despesa",
+            type="expense",
             source="nubank",
         )
 
         assert t.date == date(2025, 3, 6)
         assert t.description == "TEST"
         assert t.value == 50.0
-        assert t.type == "despesa"
+        assert t.type == "expense"
         assert t.source == "nubank"
 
     def test_transaction_type_hints(self):
@@ -312,7 +312,7 @@ class TestTransaction:
             date=date(2025, 3, 6),
             description="TEST",
             value=50.0,
-            type="receita",
+            type="income",
             source="itau",
         )
 

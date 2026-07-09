@@ -45,7 +45,7 @@ class RuleClassifier:
         Classify description by keyword matching.
 
         Matching is case-insensitive and substring-based.
-        Returns first matching category or "outros" (default).
+        Returns first matching category or "other" (default).
 
         Args:
             description: Transaction description string
@@ -54,7 +54,7 @@ class RuleClassifier:
             Category name (string)
         """
         if not description or not description.strip():
-            return "outros"
+            return "other"
 
         description_lower = description.lower()
 
@@ -63,4 +63,4 @@ class RuleClassifier:
                 if keyword in description_lower:
                     return category
 
-        return "outros"
+        return "other"

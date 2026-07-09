@@ -43,7 +43,7 @@ def sample_transaction():
         date=date(2025, 1, 15),
         description="IFOOD RESTAURANTE",
         value=45.50,
-        type="despesa",
+        type="expense",
         source="nubank",
     )
 
@@ -138,14 +138,14 @@ class TestTransactionLoader:
 
     def test_load_single_transaction(self, transaction_loader, sample_transaction):
         """Load a single transaction returns True."""
-        result = transaction_loader.load(sample_transaction, "alimentacao")
+        result = transaction_loader.load(sample_transaction, "food")
         assert result is True
 
     def test_load_transaction_inserted(
         self, transaction_loader, initialized_conn, sample_transaction
     ):
         """Loaded transaction appears in database."""
-        transaction_loader.load(sample_transaction, "alimentacao")
+        transaction_loader.load(sample_transaction, "food")
 
         row = initialized_conn.execute("SELECT COUNT(*) FROM transactions").fetchone()
         assert row[0] == 1
@@ -154,16 +154,16 @@ class TestTransactionLoader:
         self, transaction_loader, sample_transaction
     ):
         """Loading duplicate transaction returns False."""
-        transaction_loader.load(sample_transaction, "alimentacao")
-        result2 = transaction_loader.load(sample_transaction, "alimentacao")
+        transaction_loader.load(sample_transaction, "food")
+        result2 = transaction_loader.load(sample_transaction, "food")
         assert result2 is False
 
     def test_load_duplicate_not_inserted(
         self, transaction_loader, initialized_conn, sample_transaction
     ):
         """Duplicate transaction is not inserted."""
-        transaction_loader.load(sample_transaction, "alimentacao")
-        transaction_loader.load(sample_transaction, "alimentacao")
+        transaction_loader.load(sample_transaction, "food")
+        transaction_loader.load(sample_transaction, "food")
 
         row = initialized_conn.execute("SELECT COUNT(*) FROM transactions").fetchone()
         assert row[0] == 1
@@ -172,16 +172,16 @@ class TestTransactionLoader:
         self, transaction_loader, initialized_conn, sample_transaction
     ):
         """Different transactions are both inserted."""
-        transaction_loader.load(sample_transaction, "alimentacao")
+        transaction_loader.load(sample_transaction, "food")
 
         tx2 = Transaction(
             date=date(2025, 1, 16),
             description="UBER TRIP",
             value=25.00,
-            type="despesa",
+            type="expense",
             source="nubank",
         )
-        transaction_loader.load(tx2, "transporte")
+        transaction_loader.load(tx2, "transport")
 
         row = initialized_conn.execute("SELECT COUNT(*) FROM transactions").fetchone()
         assert row[0] == 2
@@ -192,10 +192,10 @@ class TestTransactionLoader:
             date=date(2025, 1, 15),
             description="TEST",
             value=10.0,
-            type="despesa",
+            type="expense",
             source="itau",
         )
-        transaction_loader.load(tx, "outros")
+        transaction_loader.load(tx, "other")
 
         origin = initialized_conn.execute(
             "SELECT id, name FROM origins WHERE name = ?", ("itau",)
@@ -207,19 +207,19 @@ class TestTransactionLoader:
         self, transaction_loader, initialized_conn, sample_transaction
     ):
         """Loading a transaction creates category if not exists."""
-        transaction_loader.load(sample_transaction, "alimentacao")
+        transaction_loader.load(sample_transaction, "food")
 
         category = initialized_conn.execute(
-            "SELECT id, name FROM categories WHERE name = ?", ("alimentacao",)
+            "SELECT id, name FROM categories WHERE name = ?", ("food",)
         ).fetchone()
         assert category is not None
-        assert category[1] == "alimentacao"
+        assert category[1] == "food"
 
     def test_foreign_keys_integrity(
         self, transaction_loader, initialized_conn, sample_transaction
     ):
         """Loaded transaction has valid FKs to origins and categories."""
-        transaction_loader.load(sample_transaction, "alimentacao")
+        transaction_loader.load(sample_transaction, "food")
 
         tx_row = initialized_conn.execute(
             "SELECT origin_id, category_id FROM transactions LIMIT 1"

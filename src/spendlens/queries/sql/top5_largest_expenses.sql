@@ -8,6 +8,6 @@ SELECT
 FROM transactions t
 JOIN categories c ON t.category_id = c.id
 JOIN origins o ON t.origin_id = o.id
-WHERE t.type = 'despesa'
+WHERE t.type = 'expense'
 ORDER BY t.value DESC
 LIMIT 5;

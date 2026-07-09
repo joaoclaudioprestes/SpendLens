@@ -6,6 +6,6 @@ SELECT
     SUM(t.value) AS total
 FROM transactions t
 JOIN categories c ON t.category_id = c.id
-WHERE t.type = 'despesa'
+WHERE t.type = 'expense'
 GROUP BY strftime('%Y-%m', t.date), c.name
 ORDER BY month DESC, total DESC;
